@@ -194,10 +194,14 @@ def create_comment():
 @app.route('/reset', methods=['POST'])
 def delete_all_data():
     if request.method == 'POST':
-        Comment.query.delete()
-        Post.query.delete()
-        User.query.delete()
-        db.session.commit()
+        db.session.close()
+
+        # Elimina todas las tablas de la base de datos
+        db.reflect()
+        db.drop_all()
+
+        # Vuelve a crear las tablas
+        db.create_all()
         return jsonify({}), 200
     else:
         return jsonify({'error': 'Método no permitido'}), 405
