@@ -12,7 +12,6 @@ Flask==3.0.2
 Flask-Cors==4.0.0
 Flask-SQLAlchemy==3.1.1
 greenlet==3.0.3
-gyp==0.1
 httplib2==0.20.2
 idna==3.4
 importlib-metadata==4.6.4
