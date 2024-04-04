@@ -10,7 +10,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://iic3103_t0_postgresql_user
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JSON_SORT_KEYS'] = False
 
-CORS(app)
+CORS(app, support_credentials=True)
 
 db = SQLAlchemy(app)
 
@@ -108,7 +108,7 @@ def create_user():
     db.session.add(new_user)
     db.session.commit()
     
-    return jsonify(new_user), 201
+    return jsonify(new_user.serialize()), 201
     
 @app.route('/posts', methods = ['GET'])
 def get_posts():
@@ -137,7 +137,7 @@ def create_post():
     db.session.add(new_post)
     db.session.commit()
     
-    return jsonify(new_post), 201
+    return jsonify(new_post.serialize()), 201
 
 @app.route('/comments', methods = ['GET'])
 def get_comments():
@@ -165,7 +165,7 @@ def create_comment():
     db.session.add(new_comment)
     db.session.commit()
     
-    return jsonify(new_comment), 201
+    return jsonify(new_comment.serialize()), 201
 
 @app.route('/reset', methods=['POST'])
 def delete_all_data():
