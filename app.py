@@ -125,8 +125,12 @@ def get_post_comments(post_id):
     
 @app.route('/posts', methods=['POST', 'OPTIONS'])
 def create_post():
-    print(request)
     data = request.json
+    user_id = data.get('userId')
+    user = User.query.get(user_id)
+    if user is None:
+        error_message = {"error": f"User with id {user_id} does not exist"}
+        return jsonify(error_message), 404
     new_post = Post(title=data['title'], content=data['content'], 
                     image=data['image'], userId=data['userId'])
     db.session.add(new_post)
@@ -140,9 +144,20 @@ def get_comments():
 
 @app.route('/comments', methods=['POST', 'OPTIONS'])
 def create_comment():
-    print("HOLA")
-    print(request)
     data = request.json
+    if 'content' not in data:
+        error_message = {"error": "missing parameter: content"}
+        return jsonify(error_message), 400
+    user_id = data.get('userId')
+    user = User.query.get(user_id)
+    if user is None:
+        error_message = {"error": f"user with id {user_id} not found"}
+        return jsonify(error_message), 404
+    post_id = data.get('postId')
+    post = Post.query.get(post_id)
+    if post is None:
+        error_message = {"error": f"post with id {post_id} not found"}
+        return jsonify(error_message), 404
     new_comment = Comment(content=data['content'], userId=data['userId'],
                        postId = data['postId'])
     db.session.add(new_comment)
