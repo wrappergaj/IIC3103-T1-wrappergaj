@@ -110,7 +110,7 @@ def create_user():
         'id': new_user.id,
         'username': new_user.username,
         'avatar': new_user.avatar,
-        'created_at': new_user.created_at
+        'created_at': new_user.created_at.strftime('%Y-%m-%d %H:%M:%S')
     }
     
     ordered_json = json.dumps(user_json, sort_keys=False)
@@ -149,7 +149,7 @@ def create_post():
             'content': new_post.content,
             'image': new_post.image,
             'userId': new_post.userId,
-            'created_at': new_post.created_at
+            'created_at': new_post.created_at.strftime('%Y-%m-%d %H:%M:%S')
     }
     ordered_json = json.dumps(post_json, sort_keys=False)
     
@@ -184,7 +184,7 @@ def create_comment():
             'id': new_comment.id,
             'content': new_comment.content,
             'userId': new_comment.userId,
-            'postId': new_comment.postId
+            'postId': new_comment.postId.strftime('%Y-%m-%d %H:%M:%S')
         }
     ordered_json = json.dumps(comment_json, sort_keys=False)
     
