@@ -187,7 +187,9 @@ def create_comment():
             'userId': new_comment.userId,
             'postId': new_comment.postId
         }
-    return comment_json, 201
+    ordered_json = json.dumps(comment_json, sort_keys=False)
+    
+    return ordered_json, 201
 
 @app.route('/reset', methods=['POST'])
 def delete_all_data():
