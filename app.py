@@ -8,7 +8,7 @@ from datetime import datetime
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://iic3103_t0_postgresql_user:7UPBPuTzCikWEzfD9oqkFfLhKJIlWLL0@dpg-co7ea5kf7o1s73cm42d0-a.oregon-postgres.render.com/iic3103_t0_postgresql"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+app.config['JSON_SORT_KEYS'] = False
 
 CORS(app)
 
@@ -111,7 +111,7 @@ def create_user():
         'id': new_user.id,
         'username': new_user.username,
         'avatar': new_user.avatar,
-        'created_at': new_user.created_at.strftime('%Y-%m-%d %H:%M:%S')
+        'created_at': new_user.created_at
     }
     
     ordered_json = json.dumps(user_json, sort_keys=False)
@@ -132,7 +132,7 @@ def get_post_comments(post_id):
     else:
         return jsonify({'error': 'Post not found'}), 404
     
-@app.route('/posts', methods=['POST', 'OPTIONS'])
+@app.route('/posts', methods=['POST'])
 def create_post():
     data = request.json
     user_id = data.get('userId')
@@ -161,7 +161,7 @@ def get_comments():
     comments = Comment.query.all()
     return jsonify([comment.serialize() for comment in comments]), 200
 
-@app.route('/comments', methods=['POST', 'OPTIONS'])
+@app.route('/comments', methods=['POST'])
 def create_comment():
     data = request.json
     if 'content' not in data:
