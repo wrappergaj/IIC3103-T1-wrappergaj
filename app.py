@@ -107,7 +107,14 @@ def create_user():
     new_user = User(username=data['username'], avatar=data['avatar'])
     db.session.add(new_user)
     db.session.commit()
-    return jsonify(new_user.serialize()), 201
+    user_json = {
+        'id': new_user.id,
+        'username': new_user.username,
+        'avatar': new_user.avatar,
+        'created_at': new_user.created_at.strftime('%Y-%m-%d %H:%M:%S')
+    }
+    
+    return jsonify(user_json), 201
     
 @app.route('/posts', methods = ['GET'])
 def get_posts():
@@ -135,7 +142,15 @@ def create_post():
                     image=data['image'], userId=data['userId'])
     db.session.add(new_post)
     db.session.commit()
-    return jsonify(new_post.serialize()), 201
+    post_json = {
+            'id': new_post.id,
+            'title': new_post.title,
+            'content': new_post.content,
+            'image': new_post.image,
+            'userId': new_post.userId,
+            'created_at': new_post.created_at.strftime('%Y-%m-%d %H:%M:%S')
+    }
+    return jsonify(post_json), 201
 
 @app.route('/comments', methods = ['GET'])
 def get_comments():
@@ -162,7 +177,13 @@ def create_comment():
                        postId = data['postId'])
     db.session.add(new_comment)
     db.session.commit()
-    return jsonify(new_comment.serialize()), 201
+    comment_json = {
+            'id': new_comment.id,
+            'content': new_comment.content,
+            'userId': new_comment.userId,
+            'postId': new_comment.postId
+        }
+    return jsonify(comment_json), 201
 
 @app.route('/reset', methods=['POST'])
 def delete_all_data():
