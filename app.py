@@ -114,7 +114,7 @@ def create_user():
         'created_at': new_user.created_at.strftime('%Y-%m-%d %H:%M:%S')
     }
     
-    ordered_json = json.dumps(user_json, sort_keys=True)
+    ordered_json = json.dumps(user_json, sort_keys=False)
     
     return ordered_json, 201
     
@@ -152,7 +152,7 @@ def create_post():
             'userId': new_post.userId,
             'created_at': new_post.created_at
     }
-    ordered_json = json.dumps(post_json, sort_keys=True)
+    ordered_json = json.dumps(post_json, sort_keys=False)
     
     return ordered_json, 201
 
@@ -167,7 +167,7 @@ def create_comment():
     if 'content' not in data:
         error_message = {"error": "missing parameter: content"}
         return jsonify(error_message), 400
-    user_id = data.get('userId')
+    user_id = int(data.get('userId'))
     user = User.query.get(user_id)
     if user is None:
         error_message = {"error": f"user with id {user_id} not found"}
