@@ -17,14 +17,14 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(50), unique = True, nullable = False)
     avatar = db.Column(db.String(100), nullable = False)
-    created_at = db.Column(db.DateTime, default = datetime.now)
+    created = db.Column(db.DateTime, default = datetime.now)
 
     def serialize(self):
         return {
             'id': self.id,
             'username': self.username,
             'avatar': self.avatar,
-            'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S')
+            'created': self.created.strftime('%Y-%m-%d %H:%M:%S')
         }
 
 class Post(db.Model):
@@ -34,7 +34,7 @@ class Post(db.Model):
     image = db.Column(db.String(100), nullable = False)
     userId = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
     user = db.relationship('User', backref = db.backref('posts', lazy = True))
-    created_at = db.Column(db.DateTime, default = datetime.now)
+    created = db.Column(db.DateTime, default = datetime.now)
 
     def serialize(self):
         return {
@@ -43,7 +43,7 @@ class Post(db.Model):
             'content': self.content,
             'image': self.image,
             'userId': self.userId,
-            'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S')
+            'created': self.created.strftime('%Y-%m-%d %H:%M:%S')
         }
 
 class Comment(db.Model):
@@ -110,7 +110,7 @@ def create_user():
         'id': new_user.id,
         'username': new_user.username,
         'avatar': new_user.avatar,
-        'created_at': new_user.created_at.strftime('%Y-%m-%d %H:%M:%S')
+        'created': new_user.created.strftime('%Y-%m-%d %H:%M:%S')
     }
     
     ordered_json = json.dumps(user_json, sort_keys=False)
@@ -149,7 +149,7 @@ def create_post():
             'content': new_post.content,
             'image': new_post.image,
             'userId': new_post.userId,
-            'created_at': new_post.created_at.strftime('%Y-%m-%d %H:%M:%S')
+            'created': new_post.created.strftime('%Y-%m-%d %H:%M:%S')
     }
     ordered_json = json.dumps(post_json, sort_keys=False)
     
