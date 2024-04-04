@@ -6,7 +6,7 @@ from flask_cors import CORS
 from datetime import datetime
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://iic3103_t0_postgresql_user:7UPBPuTzCikWEzfD9oqkFfLhKJIlWLL0@dpg-co7ea5kf7o1s73cm42d0-a/iic3103_t0_postgresql"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
