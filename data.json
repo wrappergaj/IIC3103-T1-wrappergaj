@@ -1,0 +1,51 @@
+{
+    "users": [
+      {
+        "id": 1,
+        "username": "Messi",
+        "avatar": "https://unsplash.com/es/fotos/un-rio-que-fluye-a-traves-de-un-canon-rodeado-de-montanas-n-ZMmHYdfJY"
+      },
+      {
+        "id": 2,
+        "username": "CR7",
+        "avatar": "https://unsplash.com/es/fotos/el-techo-de-un-gran-edificio-con-un-reloj-kjQ_2EfV7sQ"
+      }
+    ],
+    "posts": [
+      {
+        "id": 1,
+        "title": "Hermoso puente",
+        "content": "Mi primera foto",
+        "image": "https://unsplash.com/es/fotos/un-puente-que-esta-sobre-un-cuerpo-de-agua-MqewsYcUUQQ",
+        "userId": 1
+      },
+      {
+        "id": 2,
+        "title": "Pensativo",
+        "content": "Me encanta esta foto",
+        "image": "https://unsplash.com/es/fotos/una-persona-de-pie-en-la-cima-de-una-gran-roca-eOWabmCNEdg",
+        "userId": 2
+      }
+    ],
+    "comments": [
+      {
+        "id": 1,
+        "content": "Me encanto",
+        "userId": 1,
+        "postId": 1
+      },
+      {
+        "id": 2,
+        "content": "Que lindo",
+        "userId": 2,
+        "postId": 1
+      },
+      {
+        "id": 3,
+        "content": "Guauuu",
+        "userId": 1,
+        "postId": 2
+      }
+    ]
+  }
+  
