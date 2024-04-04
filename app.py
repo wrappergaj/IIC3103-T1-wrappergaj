@@ -171,7 +171,7 @@ def delete_all_data():
         Post.query.delete()
         User.query.delete()
         db.session.commit()
-        return jsonify({'message': 'Todos los datos han sido eliminados.'}), 200
+        return jsonify({}), 200
     else:
         return jsonify({'error': 'Método no permitido'}), 405
     
@@ -203,7 +203,7 @@ def load_data():
                 db.session.add(new_comment)
 
             db.session.commit()
-            return jsonify({'message': 'Datos cargados correctamente'}), 200
+            return jsonify({}), 200
     else:
         return jsonify({'error': 'El archivo no existe'}), 404
 
