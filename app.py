@@ -8,7 +8,6 @@ from datetime import datetime
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://iic3103_t0_postgresql_user:7UPBPuTzCikWEzfD9oqkFfLhKJIlWLL0@dpg-co7ea5kf7o1s73cm42d0-a.oregon-postgres.render.com/iic3103_t0_postgresql"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['JSON_SORT_KEYS'] = False
 
 CORS(app, support_credentials=True)
 
@@ -107,8 +106,16 @@ def create_user():
     new_user = User(username=data['username'], avatar=data['avatar'])
     db.session.add(new_user)
     db.session.commit()
+    user_json = {
+        'id': new_user.id,
+        'username': new_user.username,
+        'avatar': new_user.avatar,
+        'created_at': new_user.created_at
+    }
     
-    return jsonify(new_user.serialize()), 201
+    ordered_json = json.dumps(user_json, sort_keys=False)
+    
+    return ordered_json, 201
     
 @app.route('/posts', methods = ['GET'])
 def get_posts():
@@ -136,8 +143,17 @@ def create_post():
                     image=data['image'], userId=data['userId'])
     db.session.add(new_post)
     db.session.commit()
+    post_json = {
+            'id': new_post.id,
+            'title': new_post.title,
+            'content': new_post.content,
+            'image': new_post.image,
+            'userId': new_post.userId,
+            'created_at': new_post.created_at
+    }
+    ordered_json = json.dumps(post_json, sort_keys=False)
     
-    return jsonify(new_post.serialize()), 201
+    return ordered_json, 201
 
 @app.route('/comments', methods = ['GET'])
 def get_comments():
@@ -164,8 +180,15 @@ def create_comment():
                        postId = data['postId'])
     db.session.add(new_comment)
     db.session.commit()
+    comment_json = {
+            'id': new_comment.id,
+            'content': new_comment.content,
+            'userId': new_comment.userId,
+            'postId': new_comment.postId
+        }
+    ordered_json = json.dumps(comment_json, sort_keys=False)
     
-    return jsonify(new_comment.serialize()), 201
+    return ordered_json, 201
 
 @app.route('/reset', methods=['POST'])
 def delete_all_data():
