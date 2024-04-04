@@ -114,7 +114,7 @@ def create_user():
         'created_at': new_user.created_at.strftime('%Y-%m-%d %H:%M:%S')
     }
     
-    return jsonify(user_json), 201
+    return {"body":user_json}, 201
     
 @app.route('/posts', methods = ['GET'])
 def get_posts():
@@ -150,7 +150,7 @@ def create_post():
             'userId': new_post.userId,
             'created_at': new_post.created_at.strftime('%Y-%m-%d %H:%M:%S')
     }
-    return jsonify(post_json), 201
+    return {"body":post_json}, 201
 
 @app.route('/comments', methods = ['GET'])
 def get_comments():
@@ -183,7 +183,7 @@ def create_comment():
             'userId': new_comment.userId,
             'postId': new_comment.postId
         }
-    return jsonify(comment_json), 201
+    return {"body": comment_json}, 201
 
 @app.route('/reset', methods=['POST'])
 def delete_all_data():
