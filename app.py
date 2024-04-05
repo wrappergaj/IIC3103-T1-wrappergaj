@@ -53,13 +53,15 @@ class Comment(db.Model):
     user = db.relationship('User', backref = db.backref('comments', lazy = True))
     postId = db.Column(db.Integer, db.ForeignKey('post.id'), nullable = False)
     post = db.relationship('Post', backref = db.backref('comments', lazy = True))
+    created = db.Column(db.DateTime, default = datetime.now)
 
     def serialize(self):
         return {
             'id': self.id,
             'content': self.content,
             'userId': self.userId,
-            'postId': self.postId
+            'postId': self.postId,
+            'created': self.created
         }
 
 @app.route('/')
