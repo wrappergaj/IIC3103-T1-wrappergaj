@@ -100,7 +100,6 @@ def create_user():
         return jsonify({'error': 'missing parameter: username'}), 400
     if 'avatar' not in data:
         return jsonify({'error': 'missing parameter: avatar'}), 400
-    
     existing_user = User.query.filter_by(username=data['username']).first()
     if existing_user:
         return jsonify({'error': 'Username already exists'}), 409  # 409 Conflict
@@ -240,6 +239,11 @@ def load_data():
     else:
         return jsonify({'error': 'El archivo no existe'}), 404
 
+@app.errorhandler(Exception)
+def handle_error(error):
+    response = jsonify({'error': 'Ocurrió un error inesperado'})
+    response.status_code = 400
+    return response
 
 if __name__ == "__main__":
     with app.app_context():
