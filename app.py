@@ -61,7 +61,7 @@ class Comment(db.Model):
             'content': self.content,
             'userId': self.userId,
             'postId': self.postId,
-            'created': self.created
+            'created': self.created.strftime('%Y-%m-%d %H:%M:%S')
         }
 
 @app.route('/')
